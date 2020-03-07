@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<BlogApp.Models.Publication>
 
 @{
-    Layout = null;
+    //Layout = null;
+    Publication lastPub = ViewBag.LastPublication;
 }
 
 <!DOCTYPE html>
@@ -9,53 +10,47 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Lista de Publicaciones</title>
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
+    </p>
+    @foreach (var pub in Model)
+    {
+
+        if (lastPub.Id == pub.Id)
+        {
+            <div class="jumbotron">
+                <h4>@pub.Title <span class="badge badge-secondary">Nuevo</span> </h4>
+                <p class="lead">@pub.Content</p>
+                <hr class="my-4">
+                <p class="ml-auto">Creado: @pub.DateTime</p>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@pub.Id" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@pub.Id" class="btn btn-info">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@pub.Id" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="jumbotron">
+                <h4>@pub.Title  </h4>
+                <p class="lead">@pub.Content</p>
+                <hr class="my-4">
+                <p class="ml-auto">Creado: @pub.DateTime</p>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@pub.Id" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@pub.Id" class="btn btn-info">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@pub.Id" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        }
+
+
+    }
+
+
 </body>
 </html>

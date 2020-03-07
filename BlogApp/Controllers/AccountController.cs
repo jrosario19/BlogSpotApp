@@ -31,6 +31,11 @@ namespace BlogApp.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Publications");
+            }
+
             return View();
         }
         [HttpPost]
@@ -59,10 +64,10 @@ namespace BlogApp.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    if (_signInManager.IsSignedIn(User) )
-                    {
-                        return RedirectToAction("ListUsers", "Administration");
-                    }
+                    //if (_signInManager.IsSignedIn(User) )
+                    //{
+                    //    return RedirectToAction("ListUsers", "Administration");
+                    //}
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -98,7 +103,7 @@ namespace BlogApp.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Publications");
                     }
 
                 }

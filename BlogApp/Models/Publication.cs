@@ -15,10 +15,10 @@ namespace BlogApp.Models
         [Required]
         [Display(Name = "Contenido")]
         public string Content { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = "Fecha de Creación")]
         public DateTime DateTime { get; set; }
-        [Required]
-        public int UserId { get; set; }
+        //[Required]
+        public string UserId { get; set; }
     }
 }

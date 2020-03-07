@@ -41,17 +41,17 @@ namespace BlogApp
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
-                options.Password.RequiredLength = 10;
-                options.Password.RequiredUniqueChars = 3;
-                options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequiredLength = 10;
+                //options.Password.RequiredUniqueChars = 3;
+                //options.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<BlogDbContext>();
 
-            services.AddMvc(options => {
-                var policy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
-            }).AddXmlDataContractSerializerFormatters();
+            //services.AddMvc(options => {
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                    .RequireAuthenticatedUser()
+            //                    .Build();
+            //    options.Filters.Add(new AuthorizeFilter(policy));
+            //}).AddXmlDataContractSerializerFormatters();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -71,7 +71,9 @@ namespace BlogApp
             }
 
             app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

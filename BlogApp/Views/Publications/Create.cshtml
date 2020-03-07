@@ -1,7 +1,7 @@
 ﻿@model BlogApp.Models.Publication
 
 @{
-    Layout = null;
+//Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,14 +9,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Crear</title>
 </head>
 <body>
 
-<h4>Publication</h4>
+<h4>Publicación</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -26,28 +26,29 @@
             </div>
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <textarea asp-for="Content" class="form-control"></textarea>
+                @*<input asp-for="Content" class="form-control" />*@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="DateTime" class="control-label"></label>
                 <input asp-for="DateTime" class="form-control" />
                 <span asp-validation-for="DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            </div>*@
+            @*<div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
                 <input asp-for="UserId" class="form-control" />
                 <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
 </div>
 
 </body>

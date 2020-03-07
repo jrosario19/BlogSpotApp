@@ -23,7 +23,8 @@ namespace BlogApp.Controllers
         // GET: Publications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Publications.ToListAsync());
+            ViewBag.LastPublication = _context.Publications.Where(p => p.UserId == User.Identity.Name).LastOrDefault();
+            return View(await _context.Publications.Where(p=>p.UserId==User.Identity.Name).OrderByDescending(p=>p.Id).ToListAsync());
         }
 
         // GET: Publications/Details/5
@@ -55,10 +56,12 @@ namespace BlogApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,DateTime,UserId")] Publication publication)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content")] Publication publication)
         {
             if (ModelState.IsValid)
             {
+                publication.UserId = User.Identity.Name;
+                publication.DateTime = DateTime.Now;
                 _context.Add(publication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
